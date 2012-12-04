@@ -205,6 +205,7 @@ class UnifiedIndex(object):
             if model in self.indexes:
                 error_str = "Model '%s' has more than one 'SearchIndex`` handling it. Please exclude either '%s' or '%s' using the 'HAYSTACK_EXCLUDED_INDEXES' setting." % (model, self.indexes[model], index)
                 log.error( error_str )
+                return
                 #raise ImproperlyConfigured("Model '%s' has more than one 'SearchIndex`` handling it. Please exclude either '%s' or '%s' using the 'HAYSTACK_EXCLUDED_INDEXES' setting." % (model, self.indexes[model], index))
 
             self.indexes[model] = index
