@@ -11,6 +11,9 @@ try:
 except ImportError:
     from haystack.utils import importlib
 
+import logging
+
+log = logging.getLogger(__name__)
 
 def import_class(path):
     path_bits = path.split('.')
@@ -200,7 +203,9 @@ class UnifiedIndex(object):
             model = index.get_model()
 
             if model in self.indexes:
-                raise ImproperlyConfigured("Model '%s' has more than one 'SearchIndex`` handling it. Please exclude either '%s' or '%s' using the 'HAYSTACK_EXCLUDED_INDEXES' setting." % (model, self.indexes[model], index))
+                error_str = "Model '%s' has more than one 'SearchIndex`` handling it. Please exclude either '%s' or '%s' using the 'HAYSTACK_EXCLUDED_INDEXES' setting." % (model, self.indexes[model], index)
+                log.error( error_str )
+                #raise ImproperlyConfigured("Model '%s' has more than one 'SearchIndex`` handling it. Please exclude either '%s' or '%s' using the 'HAYSTACK_EXCLUDED_INDEXES' setting." % (model, self.indexes[model], index))
 
             self.indexes[model] = index
             self.collect_fields(index)
