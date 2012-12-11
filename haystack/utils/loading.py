@@ -11,9 +11,7 @@ try:
 except ImportError:
     from haystack.utils import importlib
 
-import logging
-
-log = logging.getLogger(__name__)
+log = settings.HAYSTACK_ERROR_LOG
 
 def import_class(path):
     path_bits = path.split('.')
